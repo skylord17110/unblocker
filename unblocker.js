@@ -6,7 +6,10 @@
 <title>Disable Securly</title>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    disableSecurly();
+    const disableButton = document.getElementById('disableButton');
+    disableButton.addEventListener('click', function() {
+        disableSecurly();
+    });
 });
 
 function disableSecurly() {
@@ -82,5 +85,6 @@ function disableSecurly() {
 </head>
 <body>
 <h1>Disable Securly</h1>
+<button id="disableButton">Disable Securly</button>
 </body>
 </html>
