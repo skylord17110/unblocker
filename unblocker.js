@@ -29,7 +29,7 @@
             cookies.forEach(function(cookie) {
                 const cookieParts = cookie.split('=');
                 const cookieName = cookieParts[0].trim();
-                document.cookie = cookieName + "=; expires=Thu, 31 Dec 9999 23:59:59 GMT; path=/;";
+                document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             });
 
             alert("Securly Successfully Disabled and cookies removed.");
