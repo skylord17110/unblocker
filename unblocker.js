@@ -1,1 +1,1 @@
-javascript:document.cookie.includes("securly_disabled=true")?(document.cookie="securly_disabled=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;",alert("Securly is now enabled.")):(document.cookie="securly_disabled=true; path=/;",alert("Securly is now disabled."));
+document.cookie.includes("securly_disabled=true")?(document.cookie="securly_disabled=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;",alert("Securly is now enabled in all tabs.")):alert("Securly is already enabled.");
