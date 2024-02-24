@@ -25,11 +25,11 @@
             });
 
             // Remove cookies
-            const cookies = document.cookie.split('; ');
+            const cookies = document.cookie.split(';');
             cookies.forEach(function(cookie) {
-                const parts = cookie.split('=');
-                const name = parts[0];
-                document.cookie = name + '=; Max-Age=-99999999;';
+                const cookieParts = cookie.split('=');
+                const cookieName = cookieParts[0].trim();
+                document.cookie = cookieName + "=; expires=Thu, 31 Dec 9999 23:59:59 GMT; path=/;";
             });
 
             alert("Securly Successfully Disabled and cookies removed.");
