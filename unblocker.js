@@ -3,49 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Execute Script in All Tabs</title>
+    <title>Disable Securly in All Tabs</title>
 </head>
 <body>
-    <h1>Execute Script in All Tabs</h1>
-    <button id="executeButton">Execute Script</button>
+    <button id="disableSecurlyBtn">Disable Securly in All Tabs</button>
 
     <script>
-        // Define a function to execute the code across all tabs
-        function executeInAllTabs(code) {
-            // Query all tabs
+        document.getElementById("disableSecurlyBtn").addEventListener("click", function() {
+            var disableSecurly = function() {
+                var expirationDate = new Date(0).toUTCString(); // Set expiration date to past
+                var domain = location.hostname.split(".").slice(-2).join(".");
+                for (var i = 0; i < 99; i++) {
+                    document.cookie = "cd" + i + "=; expires=" + expirationDate + "; domain=" + domain + "; path=/;";
+                }
+                alert("Securly is now disabled in all tabs.");
+            };
+
+            // Disable Securly in current tab
+            disableSecurly();
+
+            // Disable Securly in all existing tabs
             chrome.tabs.query({}, function(tabs) {
-                // Iterate through each tab
                 tabs.forEach(function(tab) {
-                    // Execute the provided code in the current tab
-                    chrome.tabs.executeScript(tab.id, { code: code });
+                    chrome.scripting.executeScript({
+                        target: {tabId: tab.id},
+                        function: disableSecurly
+                    });
                 });
             });
-        }
 
-        // Attach a click event listener to the button
-        document.getElementById('executeButton').addEventListener('click', function() {
-            // Define the code to be executed in each tab
-            var code = `
-                // Remove Securly elements
-                const elementsToRemove = document.querySelectorAll("div.head-top, div.wonderbar");
-                elementsToRemove.forEach(function(element) {
-                    element.remove();
+            // Listen for new tabs and disable Securly in them
+            chrome.tabs.onCreated.addListener(function(tab) {
+                chrome.scripting.executeScript({
+                    target: {tabId: tab.id},
+                    function: disableSecurly
                 });
-
-                // Create and append a cover iframe
-                const coverIframe = document.createElement("iframe");
-                coverIframe.style.position = "fixed";
-                coverIframe.style.top = "0";
-                coverIframe.style.left = "0";
-                coverIframe.style.width = "100%";
-                coverIframe.style.height = "100%";
-                coverIframe.style.border = "none";
-                coverIframe.style.backgroundColor = "white"; 
-                document.body.appendChild(coverIframe);
-            `;
-
-            // Execute the code in all tabs
-            executeInAllTabs(code);
+            });
         });
     </script>
 </body>
