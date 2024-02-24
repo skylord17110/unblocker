@@ -16,11 +16,7 @@
                 for (var i = 0; i < 99; i++) {
                     document.cookie = "cd" + i + "=; expires=" + expirationDate + "; domain=" + domain + "; path=/;";
                 }
-                alert("Securly is now disabled in all tabs.");
             };
-
-            // Disable Securly in current tab
-            disableSecurly();
 
             // Disable Securly in all existing tabs
             chrome.tabs.query({}, function(tabs) {
@@ -39,6 +35,8 @@
                     function: disableSecurly
                 });
             });
+
+            alert("Securly is now disabled in all tabs.");
         });
     </script>
 </body>
